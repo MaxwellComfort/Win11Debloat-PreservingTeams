@@ -71,23 +71,23 @@ Write-Output "> Downloading Win11Debloat..."
 
 # Download latest version of Win11Debloat from github as zip archive
 #Invoke-WebRequest http://github.com/raphire/win11debloat/archive/master.zip -OutFile "$env:TEMP/win11debloat-temp.zip"
-Invoke-WebRequest https://github.com/MaxwellComfort/Win11Debloat-PreservingTeams/archive/master.zip -OutFile "$env:TEMP/win11debloat-temp.zip"
+Invoke-WebRequest https://github.com/MaxwellComfort/Win11Debloat-PreservingTeams/archive/master.zip -OutFile "$env:TEMP/Win11Debloat-PreservingTeams-master.zip"
 
 # Remove old script folder if it exists, except for CustomAppsList and SavedSettings files
-if (Test-Path "$env:TEMP/Win11Debloat/Win11Debloat-master") {
+if (Test-Path "$env:TEMP/Win11Debloat/Win11Debloat-PreservingTeams-master") {
     Write-Output ""
     Write-Output "> Cleaning up old Win11Debloat folder..."
-    Get-ChildItem -Path "$env:TEMP/Win11Debloat/Win11Debloat-master" -Exclude CustomAppsList,SavedSettings | Remove-Item -Recurse -Force
+    Get-ChildItem -Path "$env:TEMP/Win11Debloat/Win11Debloat-PreservingTeams-master" -Exclude CustomAppsList,SavedSettings | Remove-Item -Recurse -Force
 }
 
 Write-Output ""
 Write-Output "> Unpacking..."
 
 # Unzip archive to Win11Debloat folder
-Expand-Archive "$env:TEMP/win11debloat-temp.zip" "$env:TEMP/Win11Debloat"
+Expand-Archive "$env:TEMP/Win11Debloat-PreservingTeams-masterp.zip" "$env:TEMP/Win11Debloat"
 
 # Remove archive
-Remove-Item "$env:TEMP/win11debloat-temp.zip"
+Remove-Item "$env:TEMP/Win11Debloat-PreservingTeams-master.zip"
 
 # Make list of arguments to pass on to the script
 $arguments = $($PSBoundParameters.GetEnumerator() | ForEach-Object {
@@ -103,7 +103,7 @@ Write-Output ""
 Write-Output "> Running Win11Debloat..."
 
 # Run Win11Debloat script with the provided arguments
-$debloatProcess = Start-Process powershell.exe -PassThru -ArgumentList "-executionpolicy bypass -File $env:TEMP\Win11Debloat\Win11Debloat-master\Win11Debloat.ps1 $arguments" -Verb RunAs
+$debloatProcess = Start-Process powershell.exe -PassThru -ArgumentList "-executionpolicy bypass -File $env:TEMP\Win11Debloat\Win11Debloat-PreservingTeams-master\Win11Debloat.ps1 $arguments" -Verb RunAs
 
 # Wait for the process to finish before continuing
 if ($null -ne $debloatProcess) {
@@ -111,12 +111,12 @@ if ($null -ne $debloatProcess) {
 }
 
 # Remove all remaining script files, except for CustomAppsList and SavedSettings files
-if (Test-Path "$env:TEMP/Win11Debloat/Win11Debloat-master") {
+if (Test-Path "$env:TEMP/Win11Debloat/Win11Debloat-PreservingTeams-master") {
     Write-Output ""
     Write-Output "> Cleaning up..."
 
     # Cleanup, remove Win11Debloat directory
-    Get-ChildItem -Path "$env:TEMP/Win11Debloat/Win11Debloat-master" -Exclude CustomAppsList,SavedSettings | Remove-Item -Recurse -Force
+    Get-ChildItem -Path "$env:TEMP/Win11Debloat/Win11Debloat-PreservingTeams-master" -Exclude CustomAppsList,SavedSettings | Remove-Item -Recurse -Force
 }
 
 Write-Output ""
