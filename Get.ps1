@@ -84,7 +84,7 @@ Write-Output ""
 Write-Output "> Unpacking..."
 
 # Unzip archive to Win11Debloat folder
-Expand-Archive "$env:TEMP/Win11Debloat-PreservingTeams-masterp.zip" "$env:TEMP/Win11Debloat"
+Expand-Archive "$env:TEMP/Win11Debloat-PreservingTeams-master.zip" "$env:TEMP/Win11Debloat"
 
 # Remove archive
 Remove-Item "$env:TEMP/Win11Debloat-PreservingTeams-master.zip"
